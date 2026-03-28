@@ -3,7 +3,7 @@ import { ArrowDown } from "lucide-react";
 
 declare global {
   interface Window {
-    dataLayer: any[];
+    dataLayer: unknown[];
   }
 }
 
