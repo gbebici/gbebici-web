@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import formSchema from "@/lib/validations/form";
 import type { FormSchemaData } from "@/lib/validations/form";
-import { toast }  from "sonner";
+import { toast } from "sonner";
 import {
   Form,
   FormControl,
@@ -17,12 +17,6 @@ import {
 } from "@/components/ui/form";
 import { useRouter } from "next/navigation";
 
-export {};
-declare global {
-  interface Window {
-    dataLayer: Record<string, any>[];
-  }
-}
 
 const WhatsAppIcon = () => (
   <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
@@ -67,26 +61,27 @@ const Contact = () => {
           email: data.email,
           message: data.message,
         })
-      }).then((response)=>{
+      }).then((response) => {
         if (response.status === 429) {
           router.push('/rate-limit');
-          toast.error( "You've reached the limit of messages. Please try WhatsApp.");
+          toast.error("You've reached the limit of messages. Please try WhatsApp.");
           console.log("Failed to send email. Response:", response);
           form.reset();
           return;
-        } 
+        }
         if (response.ok) {
           router.push('/thank-you');
           form.reset();
-        }else {
-          toast.error( "Failed to send message. Please try WhatsApp.");
+        } else {
+          toast.error("Failed to send message. Please try WhatsApp.");
         }
       }
-      );} catch (error) {
-        toast.error( "An error occurred. Please try WhatsApp.");
-        console.log("An error occurred:", error);
+      );
+    } catch (error) {
+      toast.error("An error occurred. Please try WhatsApp.");
+      console.log("An error occurred:", error);
     }
-    
+
   }
   const handleWhatsAppClick = () => {
     const message = encodeURIComponent("Hi Gabriel, I'd like to talk about my music project!");
