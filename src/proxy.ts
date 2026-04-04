@@ -36,7 +36,7 @@ export async function proxy(req: NextRequest) {
         style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
         font-src 'self' 'unsafe-inline' https://fonts.gstatic.com;
         img-src 'self' blob: data: https://*.googletagmanager.com https://*.google-analytics.com https://*.doubleclick.net https://*.google.com https://www.google.com.br https://*.google.com.br https://img.youtube.com;
-        connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.doubleclick.net https://*.google.com https://www.google.com.br https://*.google.com.br https://api.whatsapp.com https://wa.me/;
+        connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googleadservices.com https://*.googleadservices.com https://*.googletagmanager.com https://*.doubleclick.net https://*.google.com https://www.google.com.br https://*.google.com.br https://api.whatsapp.com https://wa.me/;
         frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com;
     `.replace(/\s{2,}/g, ' ').trim();
 
