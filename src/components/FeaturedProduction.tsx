@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 const FeaturedProduction = () => {
   // Usar o domínio nocookie ajuda a evitar bloqueios de privacidade/cookies
   const videoId = "QXNZi1xz-_I";
-  const startTime = 118;
+  const startTime = 93;
   const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}?start=${startTime}&modestbranding=1&rel=0&enablejsapi=1`;
 
   return (

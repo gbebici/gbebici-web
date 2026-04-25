@@ -88,6 +88,7 @@ const Contact = () => {
     if (typeof window !== "undefined" && window.dataLayer) {
       window.dataLayer.push({
         event: "whatsapp_click",
+        label: "",
         timestamp: new Date().toISOString(),
       });
     }

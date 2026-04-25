@@ -88,8 +88,8 @@ const Process = () => {
           <p className="font-mono text-[10px] sm:text-xs tracking-[0.2em] uppercase text-muted-foreground mb-2">
             Full Music Production
           </p>
-          <p className="font-display text-5xl sm:text-6xl md:text-7xl font-extrabold text-foreground mb-2">
-            <span className="text-primary">€970</span>
+          <p className="font-sans text-6xl sm:text-7xl md:text-8xl font-bold text-foreground mb-2">
+            <span className="text-primary tracking-tight">€ 970</span>
           </p>
           <p className="font-mono text-xs text-muted-foreground mb-6 md:mb-8">Starting price · 3–4 weeks delivery</p>
           <a

@@ -7,12 +7,17 @@ const videoReviews = [
     name: "Alice Coelho",
     videoUrl: "https://www.youtube.com/shorts/0Fj0I6dI81c",
     role: "Artist"
+  },
+  {
+    name: "Ana Lima",
+    videoUrl: "https://youtube.com/shorts/kWhXj9BSjq8?si=hMQz-qB_aG2QqSD-",
+    role: "Artist"
   }
 ];
 
 const getYouTubeSettings = (url: string) => {
-  const videoId = url.includes("shorts/") 
-    ? url.split("shorts/")[1]?.split(/[?#]/)[0] 
+  const videoId = url.includes("shorts/")
+    ? url.split("shorts/")[1]?.split(/[?#]/)[0]
     : url.split("v=")[1]?.split(/[?#]/)[0];
 
   return {
@@ -27,11 +32,11 @@ export default function References() {
   return (
     <section id="references" className="py-16 md:py-32 px-4 sm:px-6 relative overflow-hidden">
       <div className="container mx-auto max-w-4xl relative z-10">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }} 
-          whileInView={{ opacity: 1, y: 0 }} 
-          viewport={{ once: true }} 
-          transition={{ duration: 0.6 }} 
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
           className="mb-10 md:mb-16"
         >
           <p className="font-mono text-[10px] sm:text-xs tracking-[0.2em] uppercase text-primary mb-3">
@@ -43,10 +48,10 @@ export default function References() {
           </h2>
         </motion.div>
 
-        <div className="flex justify-center md:justify-start">
+        <div className="flex justify-center md:justify-start gap-5 md:gap-8 flex-wrap">
           {videoReviews.map((video, i) => {
             const { embedUrl, thumbnail } = getYouTubeSettings(video.videoUrl);
-            
+
             return (
               <motion.div
                 key={i}
@@ -64,7 +69,7 @@ export default function References() {
                     referrerPolicy="strict-origin-when-cross-origin"
                   />
                 ) : (
-                  <div 
+                  <div
                     className="w-full h-full cursor-pointer relative bg-black"
                     onClick={() => setIsPlaying(i)}
                   >
@@ -77,7 +82,7 @@ export default function References() {
                         target.src = target.src.replace('maxresdefault', 'hqdefault');
                       }}
                     />
-                    
+
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                       <div className="w-16 h-16 rounded-full bg-primary/20 border border-primary/50 flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-300">
                         <div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[15px] border-l-primary border-b-[10px] border-b-transparent ml-1" />
