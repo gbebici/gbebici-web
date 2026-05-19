@@ -7,7 +7,7 @@ const FeaturedProduction = () => {
   const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}?start=${startTime}&modestbranding=1&rel=0&enablejsapi=1`;
 
   return (
-    <section className="py-32 px-6">
+    <section id="featured" className="py-32 px-6">
       <div className="container mx-auto max-w-5xl">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
