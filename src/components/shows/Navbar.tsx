@@ -19,6 +19,17 @@ const Navbar = () => {
     { label: "Contato", href: "#contato" },
   ];
 
+  const handleWhatsAppClick = () => {
+    const message = encodeURIComponent("Olá, gostaria de fazer um orçamento para um evento particular!");
+    if (typeof window !== "undefined" && window.dataLayer) {
+      window.dataLayer.push({
+        event: "whatsapp_click",
+        label: "",
+        timestamp: new Date().toISOString(),
+      });
+    }
+    window.open(`https://wa.me/5527995096289?text=${message}`, "_blank");
+  };
   return (
     // Injetando o escopo aqui para isolar todo o comportamento visual da Navbar
     <nav className="gabriel-bebici fixed top-0 left-0 right-0 z-50 transition-all duration-500">
@@ -43,7 +54,8 @@ const Navbar = () => {
             ))}
           </div>
           <a
-            href="https://wa.me/5527995096289?text=Ol%C3%A1%2C%20gostaria%20de%20fazer%20um%20or%C3%A7amento%20para%20um%20evento%20particular!"
+            href="#"
+            onClick={handleWhatsAppClick}
             target="_blank"
             rel="noopener noreferrer"
             className="text-gold text-xs tracking-[0.15em] uppercase hover:text-gold-light transition-colors duration-300 font-semibold"

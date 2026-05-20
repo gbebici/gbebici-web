@@ -1,3 +1,19 @@
+"use client";
+
+const handleWhatsAppClick = () => {
+  const message = encodeURIComponent("Olá, gostaria de fazer um orçamento para um evento particular!");
+  if (typeof window !== "undefined" && window.dataLayer) {
+    window.dataLayer.push({
+      event: "whatsapp_click",
+      label: "",
+      timestamp: new Date().toISOString(),
+    });
+  }
+  window.open(`https://wa.me/5527995096289?text=${message}`, "_blank");
+};
+
+
+
 const HeroSection = () => {
   return (
     <section id="hero" className="gabriel-bebici relative min-h-screen flex items-center overflow-hidden">
@@ -52,7 +68,8 @@ const HeroSection = () => {
           </p>
           <div className="flex justify-end animate-fade-in-up" style={{ animationDelay: "0.8s" }}>
             <a
-              href="https://wa.me/5527995096289?text=Ol%C3%A1%2C%20gostaria%20de%20fazer%20um%20or%C3%A7amento%20para%20um%20evento%20particular!"
+              href="/"
+              onClick={handleWhatsAppClick}
               target="_blank"
               rel="noopener noreferrer"
               className="group relative inline-flex items-center gap-2 md:gap-3 overflow-hidden rounded-full bg-[#c29c54] px-8 py-3.5 md:px-12 md:py-4.5 text-[11px] md:text-sm font-semibold uppercase tracking-[0.2em] md:tracking-[0.25em] text-[#1A1814] shadow-[0_10px_30px_-10px_hsl(var(--gold)/0.4)] transition-all duration-300 hover:bg-[#d6af66] hover:-translate-y-0.5 active:scale-[0.98] active:translate-y-0"
