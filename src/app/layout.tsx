@@ -58,7 +58,8 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.variable} ${archivoBlack.variable} antialiased`}>
-        {/* Noscript for security */}
+
+        {/* Noscript */}
         <noscript>
           <iframe
             src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}

@@ -31,11 +31,14 @@ const Navbar = () => {
     window.open(`https://wa.me/5527995096289?text=${message}`, "_blank");
   };
   return (
-    // Injetando o escopo aqui para isolar todo o comportamento visual da Navbar
+
     <nav className="gabriel-bebici fixed top-0 left-0 right-0 z-50 transition-all duration-500">
-      <div className="container px-6 pt-4">
+      {/* O mx-auto entra aqui, logo depois de container */}
+      <div className="container mx-auto px-6 pt-4">
         <div
-          className={`flex h-14 items-center justify-between px-4 md:px-6 transition-all duration-500 ${scrolled ? "rounded-full border border-border/80 bg-background/55 backdrop-blur-sm" : ""
+          className={`flex h-14 items-center justify-between px-4 md:px-6 transition-all duration-500 ${scrolled
+            ? "rounded-full border border-border/80 bg-background/55 backdrop-blur-sm"
+            : ""
             }`}
         >
           {/* Ajustado de font-serif para font-serif-display para puxar a Playfair Display */}

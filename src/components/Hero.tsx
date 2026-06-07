@@ -53,7 +53,7 @@ const Hero = () => {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="font-sans text-[2vw] sm:text-xs md:text-sm lg:text-[15px] text-muted-foreground tracking-[0.15em] md:tracking-[0.2em] uppercase mb-1 md:mb-3 whitespace-nowrap"
         >
-          TRANSLATE YOUR EMOTION INTO A GLOBAL STANDARD.
+          REMOTE PRODUCTION. GET YOUR SONG FINISHED.
         </motion.h2>
 
         <motion.div
