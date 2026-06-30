@@ -12,10 +12,10 @@ import Intro from "@/components/Intro";
 
 export default function Home() {
   return (
-      <div className="min-h-screen bg-background overflow-x-hidden max-w-full">
+    <div className="min-h-screen bg-background overflow-x-hidden max-w-full">
       {/* Film grain overlay */}
       <div className="grain-overlay" />
-      
+
       <Navigation />
       <main>
         <Intro />
@@ -23,7 +23,7 @@ export default function Home() {
         <FeaturedProduction />
         <About />
         <PortfolioGrid />
-        <References/>
+        <References />
         <Process />
         <Contact />
       </main>

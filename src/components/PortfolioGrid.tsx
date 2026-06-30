@@ -1,10 +1,12 @@
 import { motion } from "framer-motion";
 import { Play } from "lucide-react";
 import { useState } from "react";
+
 interface Track {
   title: string;
   url: string;
 }
+
 const tracks: Track[] = [
   {
     title: "Cornélios - Gastação Infinita",
@@ -21,20 +23,20 @@ const tracks: Track[] = [
   }, {
     title: "Tardes de Verão - Alice Coelho",
     url: "https://youtu.be/e4X9osVREG4?t=198"
-  }];
+  }
+];
 
-// Extract video ID from YouTube URL
 const getYouTubeVideoId = (url: string) => {
   const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
   const match = url.match(regExp);
   return match && match[2].length === 11 ? match[2] : null;
 };
+
 const getYouTubeEmbedUrl = (url: string) => {
   const videoId = getYouTubeVideoId(url);
-
-  // Extract start time if present
   const timeMatch = url.match(/[?&]t=(\d+)/);
   const startTime = timeMatch ? timeMatch[1] : null;
+
   if (videoId) {
     let embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}?modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&autoplay=1&enablejsapi=1`;
     if (startTime) {
@@ -44,6 +46,7 @@ const getYouTubeEmbedUrl = (url: string) => {
   }
   return url;
 };
+
 const getYouTubeThumbnail = (url: string) => {
   const videoId = getYouTubeVideoId(url);
   if (videoId) {
@@ -51,84 +54,100 @@ const getYouTubeThumbnail = (url: string) => {
   }
   return null;
 };
-const PortfolioCard = ({
-  track,
-  index
-}: {
-  track: Track;
-  index: number;
-}) => {
+
+const PortfolioCard = ({ track, index }: { track: Track; index: number }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const embedUrl = getYouTubeEmbedUrl(track.url);
   const thumbnailUrl = getYouTubeThumbnail(track.url);
-  return <motion.div initial={{
-    opacity: 0,
-    y: 30
-  }} whileInView={{
-    opacity: 1,
-    y: 0
-  }} viewport={{
-    once: true
-  }} transition={{
-    duration: 0.6,
-    delay: index * 0.08
-  }} className="portfolio-card">
-    <div className="video-container aspect-video relative group">
-      {!isPlaying ? <div className="w-full h-full cursor-pointer relative overflow-hidden" onClick={() => setIsPlaying(true)}>
-        {thumbnailUrl && <img src={thumbnailUrl} alt={track.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onError={e => {
-          const target = e.target as HTMLImageElement;
-          if (target.src.includes('maxresdefault')) {
-            target.src = target.src.replace('maxresdefault', 'hqdefault');
-          }
-        }} />}
-        <div className="absolute inset-0 bg-background/50 group-hover:bg-background/30 transition-colors duration-500" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-primary flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-            <Play className="w-6 h-6 md:w-8 md:h-8 text-primary-foreground ml-1" fill="currentColor" />
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: index * 0.08 }}
+      className="portfolio-card flex flex-col"
+    >
+      <div className="video-container aspect-video relative group rounded-lg overflow-hidden shadow-lg">
+        {!isPlaying ? (
+          <div className="w-full h-full cursor-pointer relative overflow-hidden" onClick={() => setIsPlaying(true)}>
+            {thumbnailUrl && (
+              <img
+                src={thumbnailUrl}
+                alt={track.title}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                onError={e => {
+                  const target = e.target as HTMLImageElement;
+                  if (target.src.includes('maxresdefault')) {
+                    target.src = target.src.replace('maxresdefault', 'hqdefault');
+                  }
+                }}
+              />
+            )}
+            <div className="absolute inset-0 bg-background/50 group-hover:bg-background/30 transition-colors duration-500" />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-primary flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <Play className="w-5 h-5 md:w-6 md:h-6 text-primary-foreground ml-1" fill="currentColor" />
+              </div>
+            </div>
           </div>
-        </div>
-      </div> : <iframe src={embedUrl} title={track.title} referrerPolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen className="w-full h-full border-0" />}
-    </div>
-    <div className="py-3 md:py-4">
-      <h3 className="font-display text-base md:text-xl text-foreground font-extralight">
-        {track.title}
-      </h3>
-    </div>
-  </motion.div>;
+        ) : (
+          <iframe
+            src={embedUrl}
+            title={track.title}
+            referrerPolicy="strict-origin-when-cross-origin"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="w-full h-full border-0"
+          />
+        )}
+      </div>
+
+      {/* Margem interna reduzida para economizar espaço */}
+      <div className="py-2 md:py-3">
+        <h3 className="font-display text-sm md:text-lg text-foreground font-extralight">
+          {track.title}
+        </h3>
+      </div>
+    </motion.div>
+  );
 };
+
 const PortfolioGrid = () => {
   const [showAll, setShowAll] = useState(false);
   const initialDisplayCount = 2;
   const visibleTracks = showAll ? tracks : tracks.slice(0, initialDisplayCount);
 
   return (
-    <section id="work" className="py-16 md:py-32 px-4 sm:px-6 relative">
+    // 1. Aplicado min-h-dvh, centralização flex e padding reduzido (py-8)
+    <section id="work" className="min-h-dvh flex flex-col justify-center py-8 px-4 sm:px-6 relative">
       {/* Background decorative text */}
-      <div className="absolute top-20 left-0 overflow-hidden pointer-events-none select-none">
-        <span className="font-display text-[30vw] font-extrabold text-foreground/[0.015] leading-none">
+      <div className="absolute top-10 left-0 overflow-hidden pointer-events-none select-none z-0">
+        <span className="font-display text-[25vw] font-extrabold text-foreground/[0.015] leading-none">
           WORK
         </span>
       </div>
 
-      <div className="container mx-auto max-w-4xl relative z-10">
+      <div className="container mx-auto max-w-5xl relative z-10 w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-10 md:mb-16"
+          className="mb-6 md:mb-8" // 2. Espaço inferior reduzido
         >
-          <p className="font-mono text-[10px] sm:text-xs tracking-[0.2em] uppercase text-primary mb-3">
+          <p className="font-mono text-[10px] sm:text-xs tracking-[0.2em] uppercase text-primary mb-2">
             Portfolio
           </p>
-          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-extrabold">
+          {/* Texto principal levemente reduzido para evitar quebra excessiva */}
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold">
             SELECTED<br />
             <span className="text-muted-foreground">WORKS</span>
           </h2>
         </motion.div>
 
-        {/* Video Listing */}
-        <div className="space-y-8 md:space-y-12">
+        {/* 3. A GRANDE MUDANÇA: Substituído space-y-8 por um Grid (2 colunas no Desktop) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           {visibleTracks.map((track, index) => (
             <PortfolioCard key={track.title} track={track} index={index} />
           ))}
@@ -136,10 +155,10 @@ const PortfolioGrid = () => {
 
         {/* Expand button for more tracks */}
         {tracks.length > initialDisplayCount && (
-          <div className="mt-16 flex justify-center">
+          <div className="mt-8 flex justify-center"> {/* 4. Reduzido de mt-16 para mt-8 */}
             <button
               onClick={() => setShowAll(!showAll)}
-              className="px-8 py-4 bg-transparent border border-white/20 hover:border-primary hover:text-primary transition-all duration-300 rounded-full font-mono text-[10px] tracking-[0.2em] uppercase flex items-center gap-3 group"
+              className="px-6 py-3 md:px-8 md:py-4 bg-transparent border border-white/20 hover:border-primary hover:text-primary transition-all duration-300 rounded-full font-mono text-[10px] tracking-[0.2em] uppercase flex items-center gap-3 group"
             >
               <span>{showAll ? "Show Less" : "View Full Portfolio"}</span>
               <motion.span
@@ -155,5 +174,5 @@ const PortfolioGrid = () => {
     </section>
   );
 };
-export default PortfolioGrid;
 
+export default PortfolioGrid;

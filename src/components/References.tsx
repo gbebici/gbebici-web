@@ -30,25 +30,27 @@ export default function References() {
   const [isPlaying, setIsPlaying] = useState<number | null>(null);
 
   return (
-    <section id="references" className="py-16 md:py-32 px-4 sm:px-6 relative overflow-hidden">
-      <div className="container mx-auto max-w-4xl relative z-10">
+    // 1. Trocamos os paddings gigantes por py-8 e adicionamos min-h-dvh e centralização flex
+    <section id="references" className="min-h-dvh flex flex-col justify-center py-8 px-4 sm:px-6 relative overflow-hidden">
+      <div className="container mx-auto max-w-4xl relative z-10 w-full flex flex-col justify-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-10 md:mb-16"
+          className="mb-6 md:mb-10 text-center md:text-left" // 2. Margens inferiores reduzidas
         >
-          <p className="font-mono text-[10px] sm:text-xs tracking-[0.2em] uppercase text-primary mb-3">
+          <p className="font-mono text-[10px] sm:text-xs tracking-[0.2em] uppercase text-primary mb-2">
             References
           </p>
-          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-extrabold text-white">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-white">
             WHAT ARTISTS<br />
             <span className="text-muted-foreground text-white">SAY</span>
           </h2>
         </motion.div>
 
-        <div className="flex justify-center md:justify-start gap-5 md:gap-8 flex-wrap">
+        {/* 3. Gap reduzido entre os vídeos */}
+        <div className="flex justify-center md:justify-start gap-4 md:gap-6 flex-wrap">
           {videoReviews.map((video, i) => {
             const { embedUrl, thumbnail } = getYouTubeSettings(video.videoUrl);
 
@@ -58,7 +60,9 @@ export default function References() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                className="relative w-full max-w-[280px] aspect-[9/16] bg-black rounded-2xl overflow-hidden group border border-white/10 shadow-2xl"
+                // 4. A trava matemática: largura máxima ditada por uma altura segura (60vh)
+                className="relative w-full aspect-[9/16] bg-black rounded-2xl overflow-hidden group border border-white/10 shadow-2xl flex-shrink-0"
+                style={{ maxWidth: "min(100%, 60vh * (9/16))" }}
               >
                 {isPlaying === i ? (
                   <iframe
@@ -84,14 +88,15 @@ export default function References() {
                     />
 
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                      <div className="w-16 h-16 rounded-full bg-primary/20 border border-primary/50 flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-300">
-                        <div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[15px] border-l-primary border-b-[10px] border-b-transparent ml-1" />
+                      <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-primary/20 border border-primary/50 flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-300">
+                        {/* Triângulo de play levemente reduzido no mobile */}
+                        <div className="w-0 h-0 border-t-[8px] border-t-transparent border-l-[12px] border-l-primary border-b-[8px] border-b-transparent ml-1 md:border-t-[10px] md:border-l-[15px] md:border-b-[10px]" />
                       </div>
                     </div>
 
-                    <div className="absolute bottom-0 left-0 pointer-events-none bg-gradient-to-t from-black to-transparent p-2 w-full">
-                      <p className="text-white font-bold text-sm uppercase tracking-tighter">{video.name}</p>
-                      <p className="text-zinc-400 text-[10px] uppercase tracking-widest">{video.role}</p>
+                    <div className="absolute bottom-0 left-0 pointer-events-none bg-gradient-to-t from-black to-transparent p-3 md:p-4 w-full">
+                      <p className="text-white font-bold text-xs md:text-sm uppercase tracking-tighter">{video.name}</p>
+                      <p className="text-zinc-400 text-[9px] md:text-[10px] uppercase tracking-widest">{video.role}</p>
                     </div>
                   </div>
                 )}
